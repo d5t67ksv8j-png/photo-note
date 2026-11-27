@@ -1,0 +1,23 @@
+/* Photo Note compatibility fallbacks. Additive only; does not replace app styles. */
+@supports not (backdrop-filter: blur(1px)) {
+  .story-blur { background: rgba(8, 9, 9, .42) !important; }
+  .story-sheet { background: rgba(248, 246, 240, .97) !important; }
+}
+@supports not (aspect-ratio: 1 / 1) {
+  .photo-cell { height: auto !important; min-height: 0; }
+  .photo-cell::before { content: ""; display: block; padding-top: 100%; }
+  .photo-cell img { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .cover { height: auto; min-height: 150px; }
+}
+@media (max-width: 360px) {
+  header { padding-left: 14px; padding-right: 14px; }
+  main { padding-left: 10px; padding-right: 10px; }
+  .notes { gap: 9px; }
+  .note-body { padding-left: 9px; padding-right: 9px; }
+  .viewer-prev { left: 5px; }
+  .viewer-next { right: 5px; }
+}
+/* Prefer a usable solid surface when blur filters are expensive or disabled. */
+@media (prefers-reduced-transparency: reduce) {
+  .story-sheet { background: rgba(248, 246, 240, .98) !important; }
+}
