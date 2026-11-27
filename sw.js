@@ -1,4 +1,4 @@
-const CACHE_NAME = 'photo-note-shell-v1';
+const CACHE_NAME = 'photo-note-shell-v2';
 const APP_FILES = ['./', './index.html', './photo-note.html', './manifest.webmanifest', './apple-touch-icon.png', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_FILES)).then(() => self.skipWaiting()));
