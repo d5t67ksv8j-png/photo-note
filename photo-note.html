@@ -224,5 +224,5 @@ function closeStory(){$('storyModal').classList.remove('open');document.body.sty
 $('storyClose').onclick=closeStory;$('storyTop').onclick=()=>$('storyScroll').scrollTo({top:0,behavior:'smooth'});$('storyScroll').addEventListener('scroll',updateStoryDepth,{passive:true});$('storyModal').addEventListener('click',e=>{if(e.target===$('storyModal'))closeStory()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('storyModal').classList.contains('open'))closeStory()});
 
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&cameraStream)stopCamera()});
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}openDB().then(async d=>{db=d;updateCount();await render()}).catch(()=>toast('このブラウザでは保存機能を利用できません'));
+if('serviceWorker' in navigator){window.addEventListener('load',async()=>{try{const reg=await navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'});reg.update().catch(()=>{});}catch(e){console.warn('オフライン準備に失敗しました',e)}})}openDB().then(async d=>{db=d;updateCount();await render()}).catch(()=>toast('このブラウザでは保存機能を利用できません'));
 </script></body></html>
